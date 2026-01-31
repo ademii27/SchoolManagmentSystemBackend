@@ -1,0 +1,37 @@
+package repository;
+
+import model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+@Repository
+public class StudentRepository {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    private RowMapper<Student> rowMapper = new RowMapper<Student>() {
+        @Override
+        public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Student(rs.getInt("id"), rs.getString("name"), rs.getInt("age"));
+        }
+    };
+
+    public List<Student> findAll() {
+        return jdbcTemplate.query("SELECT * FROM students", rowMapper);
+    }
+
+    public Student findById(int id) {
+        List<Student> list = jdbcTemplate.query(
+                "SELECT * FROM students WHERE id = ?",
+                new Object[]{id}, rowMapper
+        );
+        return list.isEmpty() ? null : list.get(0);
+    }
+}
