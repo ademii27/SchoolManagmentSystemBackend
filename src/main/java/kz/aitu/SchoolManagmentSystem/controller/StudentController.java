@@ -1,7 +1,7 @@
-package controller;
+package kz.aitu.SchoolManagmentSystem.controller;
 
-import model.Student;
-import repository.StudentRepository;
+import kz.aitu.SchoolManagmentSystem.model.Student;
+import kz.aitu.SchoolManagmentSystem.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

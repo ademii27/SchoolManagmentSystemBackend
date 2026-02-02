@@ -1,6 +1,6 @@
-package repository;
+package kz.aitu.SchoolManagmentSystem.repository;
 
-import model.Student;
+import kz.aitu.SchoolManagmentSystem.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
