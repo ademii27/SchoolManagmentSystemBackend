@@ -28,5 +28,21 @@ public class StudentController {
         }
         return ResponseEntity.ok(student);
     }
-}
 
+    @PostMapping
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+        studentRepository.addStudent(student); // jdbcTemplate используется в репозитории
+        return ResponseEntity.ok(student);
+    }
+    @PutMapping("/{id}")
+        public ResponseEntity<Student> updateStudent ( @PathVariable int id, @RequestBody Student student){
+            studentRepository.updateStudent(id, student);
+            return ResponseEntity.ok(student);
+        }
+
+        @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteStudent ( @PathVariable int id){
+            studentRepository.deleteStudent(id);
+            return ResponseEntity.ok("Student with id " + id + " deleted");
+        }
+    }

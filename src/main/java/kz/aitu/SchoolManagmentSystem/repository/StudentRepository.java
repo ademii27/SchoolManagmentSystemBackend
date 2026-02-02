@@ -34,4 +34,26 @@ public class StudentRepository {
         );
         return list.isEmpty() ? null : list.get(0);
     }
+    public void addStudent(Student student) {
+        jdbcTemplate.update(
+                "INSERT INTO students (id, name, age) VALUES (?, ?, ?)",
+                student.getId(), student.getName(), student.getAge()
+        );
+    }
+
+    // PUT — обновить студента
+    public void updateStudent(int id, Student student) {
+        jdbcTemplate.update(
+                "UPDATE students SET name = ?, age = ? WHERE id = ?",
+                student.getName(), student.getAge(), id
+        );
+    }
+
+    // DELETE — удалить студента
+    public void deleteStudent(int id) {
+        jdbcTemplate.update(
+                "DELETE FROM students WHERE id = ?",
+                id
+        );
+    }
 }
