@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/studentsl")
 public class StudentController {
 
     @Autowired
@@ -50,4 +50,18 @@ public class StudentController {
             studentRepository.deleteStudent(id);
             return ResponseEntity.ok("Student with id " + id + " deleted");
         }
+    // GET /studentsl/filter?age=18
+    @GetMapping("/filter")
+    public List<Student> filterByAge(@RequestParam int age) {
+        return studentRepository.findByAge(age);
     }
+    @GetMapping("/averageAge")
+    public Double averageAge() {
+        return studentRepository.getAverageAge();
+    }
+
+
+}
+
+
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students List</title>
+</head>
+<body>
+<h1>Students</h1>
+
+<input type="number" id="ageFilter" placeholder="Enter age">
+<button onclick="filterStudents()">Filter</button>
+
+<ul id="studentsList"></ul>
+<p>Average Age: <span id="avgAge"></span></p>
+
+<script>
+    // Загрузка всех студентов по умолчанию
+    function loadStudents() {
+        fetch('/studentsl')
+        .then(res => res.json())
+        .then(data => {
+            const ul = document.getElementById('studentsList');
+            ul.innerHTML = '';
+            data.forEach(s => {
+                const li = document.createElement('li');
+                li.textContent = `${s.name} (${s.age} years old)`;
+                ul.appendChild(li);
+            });
+        });
+    }
+
+    // Фильтр студентов по возрасту
+    function filterStudents() {
+        const age = document.getElementById('ageFilter').value;
+        fetch('/studentsl/filter?age=' + age)
+        .then(res => res.json())
+        .then(data => {
+            const ul = document.getElementById('studentsList');
+            ul.innerHTML = '';
+            data.forEach(s => {
+                const li = document.createElement('li');
+                li.textContent = `${s.name} (${s.age} years old)`;
+                ul.appendChild(li);
+            });
+        });
+    }
+
+    // Загрузка среднего возраста
+    fetch('/studentsl/averageAge')
+    .then(res => res.json())
+    .then(avg => { document.getElementById('avgAge').textContent = avg.toFixed(2); });
+
+    loadStudents();
+</script>
+</body>
+</html>

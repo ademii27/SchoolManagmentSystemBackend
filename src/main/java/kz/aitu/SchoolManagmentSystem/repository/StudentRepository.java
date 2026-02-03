@@ -59,4 +59,20 @@ public class StudentRepository {
                 id
         );
     }
+    // Найти студентов по возрасту
+    public List<Student> findByAge(int age) {
+        return jdbcTemplate.query(
+                "SELECT * FROM students WHERE age = ?",
+                new Object[]{age},
+                rowMapper
+        );
+    }
+    // В StudentRepository
+    public Double getAverageAge() {
+        return jdbcTemplate.queryForObject(
+                "SELECT AVG(age) FROM students",
+                Double.class
+        );
+    }
+
 }
