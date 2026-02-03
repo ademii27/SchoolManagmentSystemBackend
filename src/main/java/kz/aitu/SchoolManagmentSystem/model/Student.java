@@ -1,3 +1,4 @@
+//model/Student
 package kz.aitu.SchoolManagmentSystem.model;
 
 public class Student {
@@ -6,7 +7,7 @@ public class Student {
     private String name;
     private int age;
 
-    public Student() {} // нужен для Jackson
+    public Student() {}
 
     public Student(int id, String name, int age) {
         this.id = id;

@@ -1,3 +1,5 @@
+//repository/StudentRepository
+
 package kz.aitu.SchoolManagmentSystem.repository;
 
 import kz.aitu.SchoolManagmentSystem.model.Student;
@@ -34,13 +36,14 @@ public class StudentRepository {
         );
         return list.isEmpty() ? null : list.get(0);
     }
-    public void addStudent(Student student) {
-        jdbcTemplate.update(
-                "INSERT INTO students (id, name, age) VALUES (?, ?, ?)",
-                student.getId(), student.getName(), student.getAge()
+    public int addStudent(Student student) {
+        return jdbcTemplate.queryForObject(
+                "INSERT INTO students (name, age) VALUES (?, ?) RETURNING id",
+                Integer.class,
+                student.getName(),
+                student.getAge()
         );
     }
-
     // PUT — обновить студента
     public void updateStudent(int id, Student student) {
         jdbcTemplate.update(

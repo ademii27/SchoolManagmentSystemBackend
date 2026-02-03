@@ -1,3 +1,5 @@
+//contoller/StudentController
+
 package kz.aitu.SchoolManagmentSystem.controller;
 
 import kz.aitu.SchoolManagmentSystem.model.Student;
@@ -7,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/students")
@@ -31,9 +34,11 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        studentRepository.addStudent(student); // jdbcTemplate используется в репозитории
+        int generatedId = studentRepository.addStudent(student);
+        student.setId(generatedId);
         return ResponseEntity.ok(student);
     }
+
     @PutMapping("/{id}")
         public ResponseEntity<Student> updateStudent ( @PathVariable int id, @RequestBody Student student){
             studentRepository.updateStudent(id, student);
